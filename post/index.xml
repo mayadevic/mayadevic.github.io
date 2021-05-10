@@ -8,17 +8,6 @@
     <language>en-US</language>
     <lastBuildDate>Sun, 09 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>NewPost</title>
-      <link>/post/2021/05/09/newpost/</link>
-      <pubDate>Sun, 09 May 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/post/2021/05/09/newpost/</guid>
-      <description>hello
-Link to project 1
-Link to google</description>
-    </item>
-    
-    <item>
       <title>Using R and Python  </title>
       <link>/post/2021/05/09/getting-started-with-python/</link>
       <pubDate>Sun, 09 May 2021 00:00:00 +0000</pubDate>
