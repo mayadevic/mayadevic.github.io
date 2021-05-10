@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>My Site</title>
+    <link>/</link>
+    <description>Recent content on My Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <lastBuildDate>Sun, 09 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NewPost</title>
+      <link>/post/2021/05/09/newpost/</link>
+      <pubDate>Sun, 09 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2021/05/09/newpost/</guid>
+      <description>hello
+Link to project 1
+Link to google</description>
+    </item>
+    
+    <item>
+      <title>Hello R Markdown</title>
+      <link>/post/2015/07/23/hello-r-markdown/</link>
+      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
+      
+      <guid>/post/2015/07/23/hello-r-markdown/</guid>
+      <description>R Markdown This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
+You can embed an R code chunk like this:
+summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.98 ## 3rd Qu.</description>
+    </item>
+    
+    <item>
+      <title>Project 1</title>
+      <link>/project/project1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/project/project1/</guid>
+      <description>Project 1 library(tidyverse) ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ── ## ✓ ggplot2 3.3.3 ✓ purrr 0.3.4 ## ✓ tibble 3.0.4 ✓ dplyr 1.0.2 ## ✓ tidyr 1.1.2 ✓ stringr 1.4.0 ## ✓ readr 1.4.0 ✓ forcats 0.5.0 ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ── ## x dplyr::filter() masks stats::filter() ## x dplyr::lag() masks stats::lag() Apple_Watch_Data &amp;lt;- read.csv(&amp;quot;Apple_Watch_Data.csv&amp;quot;) Weather_Data &amp;lt;- read.csv(&amp;quot;Weather_Data.csv&amp;quot;)  Introduction The two datasets I chose for this project were Apple_Watch_Data and Weather_Data.</description>
+    </item>
+    
+    <item>
+      <title>Project 2</title>
+      <link>/project/project2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/project/project2/</guid>
+      <description>Credit &amp;lt;- read.csv(&amp;quot;Credit.csv&amp;quot;) Introduction The dataset I chose for this project was the built-in r dataset called Credit. This dataset has 11 variables and 400 observations. The variables in this dataset are income, limit, rating, cards, age, eduction, gender, student, married, ethnicity, and balance. The income variable is recording each persons income, the limit variable is recording each persons credit limit, the rating variable is recording each persons credit rating, the age variable is recording each persons age, the education variable is recording the number of years of education completed by each person, the gender variable is recording each persons gender, the student variable is indicating wheather each person was a student or not, the ethnicity variable is recording each persons ethnicity, and the balance variable is recording the average credit card balance for each person.</description>
+    </item>
+    
+    <item>
+      <title>Projects</title>
+      <link>/projects/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/</guid>
+      <description> Check out some of my coding projects below:
+ Wrangling &amp;amp; Exploratory Data Analysis
+ Modeling, Inference, Prediction
+  -- </description>
+    </item>
+    
+    <item>
+      <title>Resume</title>
+      <link>/resume/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/resume/</guid>
+      <description>    </description>
+    </item>
+    
+  </channel>
+</rss>

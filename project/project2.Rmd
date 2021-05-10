@@ -1,0 +1,265 @@
+---
+title: "Project 2"
+author: "Maya Devic"
+date: "5/6/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+hook_output = knit_hooks$get('output')
+knit_hooks$set(output = function(x, options) {
+  # this hook is used only when the linewidth option is not NULL
+  if (!is.null(n <- options$linewidth)) {
+    x = knitr:::split_lines(x)
+    # any lines wider than n should be wrapped
+    if (any(nchar(x) > n)) x = strwrap(x, width = n)
+    x = paste(x, collapse = '\n')
+  }
+  hook_output(x, options)
+})
+
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE,fig.align="center",warning=FALSE,message=FALSE,fig.width=8, fig.height=5, linewidth=60)
+options(tibble.width = 100,width = 100)
+library(tidyverse)
+
+
+library(knitr)
+opts_chunk$set(fig.align="center", fig.height=5, message=FALSE, warning=FALSE, fig.width=8, tidy.opts=list(width.cutoff=60),tidy=TRUE)
+
+class_diag<-function(probs,truth){
+  
+  tab<-table(factor(probs>.5,levels=c("FALSE","TRUE")),truth)
+  acc=sum(diag(tab))/sum(tab)
+  sens=tab[2,2]/colSums(tab)[2]
+  spec=tab[1,1]/colSums(tab)[1]
+  ppv=tab[2,2]/rowSums(tab)[2]
+
+  if(is.numeric(truth)==FALSE & is.logical(truth)==FALSE) truth<-as.numeric(truth)-1
+  
+  #CALCULATE EXACT AUC
+  ord<-order(probs, decreasing=TRUE)
+  probs <- probs[ord]; truth <- truth[ord]
+  
+  TPR=cumsum(truth)/max(1,sum(truth)) 
+  FPR=cumsum(!truth)/max(1,sum(!truth))
+  
+  dup<-c(probs[-1]>=probs[-length(probs)], FALSE)
+  TPR<-c(0,TPR[!dup],1); FPR<-c(0,FPR[!dup],1)
+  
+  n <- length(TPR)
+  auc<- sum( ((TPR[-1]+TPR[-n])/2) * (FPR[-1]-FPR[-n]) )
+
+  data.frame(acc,sens,spec,ppv,auc)
+}
+```
+
+```{R}
+Credit <- read.csv("Credit.csv")
+```
+
+## Introduction 
+##### The dataset I chose for this project was the built-in r dataset called Credit. This dataset has 11 variables and 400 observations. The variables in this dataset are income, limit, rating, cards, age, eduction, gender, student, married, ethnicity, and balance. The income variable is recording each persons income, the limit variable is recording each persons credit limit, the rating variable is recording each persons credit rating, the age variable is recording each persons age, the education variable is recording the number of years of education completed by each person, the gender variable is recording each persons gender, the student variable is indicating wheather each person was a student or not, the ethnicity variable is recording each persons ethnicity, and the balance variable is recording the average credit card balance for each person. 
+
+## Question 1
+
+##### MANOVA Test
+
+```{R}
+man1<-manova(cbind(Income,Limit,Rating,Cards,Age,Education,Balance)~Student,data=Credit)
+summary(man1)
+
+summary.aov(man1)
+
+pairwise.t.test(Credit$Balance,Credit$Student,p.adj="none")
+```
+
+*The MANOVA test shows that at least one of the numeric variables differs by whether someone was a student or not (P-value = 2.2e-16). After running an ANOVA for all the numeric variables, the results showed that only the balance variable differed between students vs non-students. As a result, a pairwise t-test was done on the balance variable which confirmed that there was a significant difference in credit card balance for students vs non-students. There were a total of 9 tests done, including 1 MANOVA, 7 ANOVA, and 1 t-test. Therefore, the adjusted alpha should be 0.05/9=0.0056. Additionally, the probability of a Type 1 error occurring is 1-0.95^9=0.3698. For the MANOVA test there are a lot of assumptions such as random samples/independent observation, multivariate normality of dependent variables, homogeneity of within-group covariance matrices, linear relationships among dependent variables, no extreme univariate or multivariate outliers, and no multicollinearity. Because there are so many assumptions it is likely that not all of them were met*
+
+## Question 2
+
+##### Randomization Test 
+
+```{R}
+rand_dist <- vector()
+for(i in 1:5000){
+  new <-data.frame(balance=sample(Credit$Balance),student=Credit$Student)
+  rand_dist[i] <- mean(new[new$student=="Yes",]$balance)-
+                  mean(new[new$student=="No",]$balance)
+}
+Credit%>%group_by(Student)%>%
+  summarize(means=mean(Balance))%>%summarize(`mean_diff:`=diff(means))
+mean(rand_dist> 396.4556 | rand_dist< -396.4556)
+
+hist(rand_dist,main="",ylab=""); abline(v=c(396.4556,-396.4556),col="red")
+```
+
+*The null hypothesis for this randomization test is that the mean difference in credit card balance is the same for students and non-students. The alternate hypothesis for this test is that the mean difference is not the same. After performing a randomization test, the results showed that the mean difference in credit card balance for students vs non-students was 396.4556. Additionally, the p-value for this was zero, meaning we could reject the null hypothesis and conclude that there is a significant difference in mean credit card balance between students and non-students.*
+
+## Question 3
+
+##### Linear Regression 
+
+```{R}
+#Linear Regression 
+fit<-lm(Balance~Age+Education, data=Credit)
+summary(fit)
+
+Credit$Age_c <- (Credit$Age - mean(Credit$Age,na.rm=T))
+Credit$Education_c <- (Credit$Education - mean(Credit$Education,na.rm=T))
+
+#Linear Regression with Interaction 
+fit2<-lm(Balance~Age_c*Education_c, data=Credit)
+summary(fit2)
+
+#Interaction Plot 
+fit2<-lm(Balance~Age_c*Education_c, data=Credit)
+new1<-Credit
+new1$Age_c<-mean(Credit$Age_c)
+new1$mean<-predict(fit2,new1)
+new1$Age_c<-mean(Credit$Age_c)+sd(Credit$Age_c)
+new1$plus.sd<-predict(fit2,new1)
+new1$Age_c<-mean(Credit$Age_c)-sd(Credit$Age_c)
+new1$minus.sd<-predict(fit2,new1)
+newint<-new1%>%select(Balance,Education_c,mean,plus.sd,minus.sd)%>%gather(Age,value,-Balance,-Education_c)
+
+mycols<-c("#619CFF","#F8766D","#00BA38")
+names(mycols)<-c("-1 sd","mean","+1 sd")
+mycols=as.factor(mycols)
+
+ggplot(Credit,aes(Education_c,Balance),group=mycols)+geom_point()+geom_line(data=new1,aes(y=mean,color="mean"))+geom_line(data=new1,aes(y=plus.sd,color="+1 sd"))+geom_line(data=new1,aes(y=minus.sd,color="-1 sd"))+scale_color_manual(values=mycols)+labs(color="Age (cont)")+theme(legend.position=c(.9,.2))
+
+#R-squared 
+summary(fit2)
+
+#Normality assumption 
+resids<-fit2$residuals
+shapiro.test(resids)
+
+#Linearity assumption 
+fitted<-lm(Balance~Age_c*Education_c, data=Credit)$fitted.values
+ggplot()+geom_point(aes(fitted,resids))
+
+#Homoskedasticity Assumption 
+library(sandwich) 
+library(lmtest)
+bptest(fit2)
+
+#Robust Standard Errors 
+coeftest(fit2, vcov=vcovHC(fit2))[,1:2]
+```
+
+*I decided to run a linear regression model predicting credit card balance from age and years of education completed. This linear regression model indicated that only the intercept was significant so age and years of education completed do not explain a significant amount of variation in credit card balance. The intercept value indicates that 533.21 is the predicted credit card balance when age and years of education is zero. The coefficient estimate for age is 0.049 and is the slope for age on credit card balance while holding education constant. The coefficient estimate for education is -1.187 and is the slope for education on credit card balance while holding age constant.*
+*For the linear regression with interaction, the intercept of 520.08 is the predicted credit card balance for participants of average age and average education level of (after mean centering age and education).*
+*The model explains 0.176% of the variation in the outcome.*
+*After checking the assumptions of linearity, normality, and homoskedasticity, the normality assumption was not met but the others were met.*
+*After recomputing the regression with robust standard errors the results were nearly the same as before with only slightly higher standard errors.*
+
+## Question 4
+
+##### Bootstrapped Standard Errors 
+
+```{R}
+fit2<-lm(Balance~Age_c*Education_c, data=Credit)
+resids <- fit$residuals
+fitted<-fit$fitted.values
+
+resid_resamp<-replicate(5000,{
+  new_resids<-sample(resids,replace=TRUE)
+  Credit$new_y<-fitted+new_resids
+  fit2<-lm(new_y~Age_c*Education_c,data=Credit)
+  coef(fit2)
+})
+resid_resamp %>% t %>%as.data.frame %>% summarize_all(sd)
+```
+
+*The bootstrapped standard errors were slightly lower than both the robust standard errors and the original standard errors. *
+
+## Question 5
+
+##### Logistic Regression Predicting Binary Variable 
+
+```{R}
+data<-Credit%>%mutate(y=ifelse(Student=="Yes",1,0))
+
+fit3<-lm(y~Balance+Cards,data=data)
+summary(fit3)
+
+#Accuracy,Sensitivity,TPT,TNR,PPV,AUC
+prob<-predict(fit3,type="response")
+class_diag(prob,data$y)
+
+#Confusion Matrix 
+probs<-predict(fit3,type="response")
+table(predict=as.numeric(probs>0.5),truth=data$y)%>%addmargins
+
+#Density Plot 
+data$logit<-predict(fit3,type="response")
+data%>%ggplot()+geom_density(aes(logit,color=Student,fill=Student), alpha=.4)+
+  theme(legend.position=c(.85,.85))+geom_vline(xintercept=0)+xlab("logit (log-odds)")+
+  geom_rug(aes(logit,color=Student))+
+  geom_text(x=-5,y=.07,label="TN = 431")+
+  geom_text(x=-1.75,y=.008,label="FN = 19")+
+  geom_text(x=1,y=.006,label="FP = 13")+
+  geom_text(x=5,y=.04,label="TP = 220")
+
+#ROC Curve 
+library(plotROC)
+ROCplot<-ggplot(fit3)+geom_roc(aes(d=y,m=probs), n.cuts=0)
+ROCplot
+calc_auc(ROCplot)
+
+```
+
+*I decided to run a regression that predicted if someone was a student or not from credit card balance and the number of credit cards a person has. Based on this regression, only Balance was a significant predictor. Additionally, this model shows that for every one unit increase credit card balance, the y variable goes up by 1.720e-04. Also, for every one unit increase in the number of credit cards owned, the y variable goes down by 1.072e-02.*
+*The accuracy for this model was 0.9, the sensitivity was 0, the specificity was 1, and the AUC was 0.734.*
+*Since the AUC for this model was 0.734, this falls into the category of fair, so it is not great but not terrible.*
+
+## Question 6
+
+##### Logistic Regression Predicting Binary Variable From All Other Variable
+
+```{R}
+data<-Credit%>%mutate(y=ifelse(Student=="Yes",1,0))
+
+fit4<-glm(y~., data=data)
+summary(fit4)
+prob<-predict(fit4,type="response")
+class_diag(prob,data$y)
+
+
+#10-fold CV
+k=10
+data<-data[sample(nrow(data)),]
+folds<-cut(seq(1:nrow(data)),breaks=k,labels=F)
+
+diags<-NULL
+for(i in 1:k){
+  train<-data[folds!=i,]
+  test<-data[folds==i,]
+  truth<-test$y
+  
+  fit4<-glm(y~., data=data, family=binomial)
+  probs<-predict(fit4,newdata = test,type="response")
+  diags<-rbind(diags,class_diag(probs,truth))
+}
+summarize_all(diags,mean)
+
+#LASSO
+library(glmnet)
+y<-as.matrix(data$y)
+x<-model.matrix(y~.,data=data)
+cv<-cv.glmnet(x,y,family="binomial")
+lasso1<-glmnet(x,y,family="binomial",lambda=cv$lambda.1se)
+coef(lasso1)
+
+
+```
+
+*After performing a logistic regression that predicted if someone was a student or not based on all the other variables in the dataset,the in-sample classification diagnostics were an acc of 0.82, sens of 0.1 spec of 0.9. ppv of 0.1, and auc of 0.499. This auc is very low and would be considered bad.*
+*Next, I performed a 10-fold CV with the same model, and all the average out-of-sample classification diagnostics were a 1.*
+*After that I performing LASSO on the same model. The variables that were retained were the intercept and StudentYes. However, since I used the Student variable to create the binary y variable, it would not make sense to run a 10-fold CV on the lasso selected variables since it would be the same variable. *
+
+
+

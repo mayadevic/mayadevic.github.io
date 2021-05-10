@@ -1,0 +1,18 @@
+---
+title: NewPost
+author: ''
+date: '2021-05-09'
+slug: newpost
+categories: []
+tags: []
+description: ''
+---
+
+hello
+
+[Link to project 1](/project/project1/)
+
+[Link to google](https://www.google.com)
+
+
+

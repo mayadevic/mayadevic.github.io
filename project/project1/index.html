@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Maya Devic" />
+    
+    <link rel="shortcut icon" type="image/x-icon" href="../../img/favicon.ico">
+    <title>Project 1</title>
+    <meta name="generator" content="Hugo 0.83.1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../../css/main.css" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,200bold,400old" />
+    
+    <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+    
+  </head>
+
+  <body>
+    <div id="wrap">
+      
+      <nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="../../"><i class="fa fa-home"></i></a>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="navbar-collapse collapse" id="navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+        <li><a href="../../post/">BLOG</a></li>
+        
+        <li><a href="../../projects/">PROJECTS</a></li>
+        
+        <li><a href="../../resume/">RESUME</a></li>
+        
+      
+      </ul>
+    </div>
+  </div>
+</nav>
+
+      <div class="container">
+        <div class="blog-post">
+          <h3>
+            <strong><a href="../../project/project1/">Project 1</a></strong>
+          </h3>
+        </div>
+ 
+<div class="blog-title">
+          <h4>
+         January 1, 0001 
+            &nbsp;&nbsp;
+            
+          </h4>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="blogpost">
+              
+
+
+<div id="project-1" class="section level2">
+<h2>Project 1</h2>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
+## ✓ tibble  3.0.4     ✓ dplyr   1.0.2
+## ✓ tidyr   1.1.2     ✓ stringr 1.4.0
+## ✓ readr   1.4.0     ✓ forcats 0.5.0</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>Apple_Watch_Data &lt;- read.csv(&quot;Apple_Watch_Data.csv&quot;)
+Weather_Data &lt;- read.csv(&quot;Weather_Data.csv&quot;)</code></pre>
+</div>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<div id="the-two-datasets-i-chose-for-this-project-were-apple_watch_data-and-weather_data.-the-apple_watch_data-dataset-came-from-the-data-on-my-apple-watch-fitness-app-in-which-i-took-data-for-the-number-of-calories-burned-steps-taken-hours-stood-and-distance-walked-over-50-days-in-janruary-and-february.-the-weather_data-has-the-average-temperature-for-the-corresponding-days-with-the-apple-watch-fitness-app-for-leander-texas-the-location-where-the-fitness-stats-were-recorded.-i-chose-this-data-because-i-was-interested-in-seeing-the-relationships-between-various-fitness-variables-that-are-recorded-on-my-watch.-i-expect-to-see-positive-relationships-between-calories-burned-steps-takes-distance-walked-and-hours-stood.-however-i-am-interested-in-seeing-if-temperature-plays-a-role-in-fitness-activity.-i-would-assume-that-cooler-temperature-would-decrease-activity." class="section level5">
+<h5>The two datasets I chose for this project were Apple_Watch_Data and Weather_Data. The Apple_Watch_Data dataset came from the data on my apple watch fitness app in which I took data for the number of calories burned, steps taken, hours stood, and distance walked over 50 days in Janruary and February. The Weather_Data has the average temperature for the corresponding days with the apple watch fitness app for Leander Texas, the location where the fitness stats were recorded. I chose this data because I was interested in seeing the relationships between various fitness variables that are recorded on my watch. I expect to see positive relationships between calories burned, steps takes, distance walked, and hours stood. However, I am interested in seeing if temperature plays a role in fitness activity. I would assume that cooler temperature would decrease activity.</h5>
+</div>
+</div>
+<div id="question-1" class="section level2">
+<h2>Question 1</h2>
+<div id="the-datasets-used-for-this-project-were-already-tidy-so-pivot_wider-and-pivot_longer-were-used-in-question-3." class="section level5">
+<h5>The datasets used for this project were already tidy so pivot_wider and pivot_longer were used in question 3.</h5>
+</div>
+</div>
+<div id="question-2" class="section level2">
+<h2>Question 2</h2>
+<div id="joining-2-datasets-the-two-datasets-i-will-be-joining-is-apple_watch_data-which-has-data-from-my-apple-watch-fitness-app-containing-the-date-calories-burned-hours-stood-number-of-steps-and-distance-walked-with-weather_data-which-includes-the-average-daily-temperatures-for-leander-texas-on-the-same-days-the-fitness-stats-were-recorded." class="section level5">
+<h5>Joining 2 Datasets: The two datasets I will be joining is Apple_Watch_Data, which has data from my apple watch fitness app containing the date, calories burned, hours stood, number of steps, and distance walked with Weather_Data, which includes the average daily temperatures for Leander Texas on the same days the fitness stats were recorded.</h5>
+<pre class="r"><code>Joined_Fitness_Data &lt;- Apple_Watch_Data %&gt;% left_join(Weather_Data, by=&quot;Date&quot;)</code></pre>
+<p><em>The type of join that was performed was a left join. There were 50 observations in each dataset and 50 observations after joining. There were no observations that were dropped because for each day that the watch recorded the fitness data, there was weather data for that day available. This particular join was used because I wanted to add on the weather data for the days that the watch recorded fitness activity. So, it was easiest to do a left join in order to add that information by the corresponding date since they shared that variable in common.</em></p>
+</div>
+</div>
+<div id="question-3" class="section level2">
+<h2>Question 3</h2>
+<div id="summary-statistics" class="section level5">
+<h5>Summary Statistics:</h5>
+</div>
+<div id="dplyr-functions" class="section level5">
+<h5>dplyr functions</h5>
+<p><em>Using the filter function, I filtered the dataset so that it only showed the data for when the number of steps was greater than or equal to 10,000. I did this in order to see on how many of the 50 days I met my 10,000 step goal. The results of this showed that I only met my goal on 4/50 days.</em></p>
+<pre class="r"><code>#Filter function 
+Joined_Fitness_Data %&gt;% filter(Steps &gt;= 10000)</code></pre>
+<pre><code>##      Date Cal_burned Hrs_stood Steps Dist_walked Avg_Temp
+## 1  1/3/21        506        10 10975         6.1     51.6
+## 2  1/5/21        569        10 11417         6.0     59.0
+## 3  1/7/21        520        12 15247         7.0     50.5
+## 4 1/21/21        381        11 11536         5.3     57.2</code></pre>
+<p><em>Using the select function, I selected only the date, calories burned, and distance walked columns. Then I arranged the dataset by distance walked. I did this in order to see if walking a greater distance burned more calories. The results of this showed that there is a positive relationship between distance walked and calories burned, however it is not perfect because on some days I walked a shorter distance but burned more calories.</em></p>
+<pre class="r"><code>#Select function 
+Joined_Fitness_Data %&gt;% select(Date, Cal_burned, Dist_walked) %&gt;% arrange(Dist_walked) %&gt;% head()</code></pre>
+<pre><code>##      Date Cal_burned Dist_walked
+## 1 2/14/21         90         0.5
+## 2 1/16/21        131         0.9
+## 3 1/20/21        142         0.9
+## 4 1/15/21        210         1.1
+## 5 2/12/21        156         1.1
+## 6 1/19/21        196         1.2</code></pre>
+<p><em>Using the arrange function, I arranged my data from lowest temperature to highest temperature to see if colder weather had an effect on fitness activity. This shows that typically, although not always the case, the temperature seems to be higher on days that I burned more calories. </em></p>
+<pre class="r"><code>#Arrange function 
+Joined_Fitness_Data %&gt;% arrange(Avg_Temp) %&gt;% head()</code></pre>
+<pre><code>##      Date Cal_burned Hrs_stood Steps Dist_walked Avg_Temp
+## 1 2/14/21         90         7  1058         0.5     24.8
+## 2 2/13/21        156         5  3614         1.7     30.0
+## 3 2/12/21        156         8  2242         1.1     31.3
+## 4 2/19/21        222         8  5068         2.4     31.5
+## 5 2/11/21        190         9  4074         1.8     33.6
+## 6 1/12/21        238        12  4306         1.9     37.8</code></pre>
+<p><em>Using the group_by function, I grouped my data by Month. In order to do that, I first had to separate the month variable into “month”, “day” and, “year”. After that I made a new column called “month2” in which I recoded the month column so that “1” was equal to “January” and “2” was equal to “February”. After that I grouped the data by Month2.</em></p>
+<pre class="r"><code>#group_by function 
+Joined_Fitness_Data %&gt;% separate(Date,into=c(&quot;Month&quot;, &quot;Day&quot;, &quot;Year&quot;)) %&gt;% 
+  mutate(Month2 = recode_factor(Month, `1`=&quot;January&quot;, `2`=&quot;Ferbruary&quot;)) %&gt;%
+  group_by(Month2)</code></pre>
+<pre><code>## # A tibble: 50 x 9
+## # Groups:   Month2 [2]
+##    Month Day   Year  Cal_burned Hrs_stood Steps Dist_walked Avg_Temp Month2 
+##    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      &lt;int&gt;     &lt;int&gt; &lt;int&gt;       &lt;dbl&gt;    &lt;dbl&gt; &lt;fct&gt;  
+##  1 1     1     21           145         7  2937         1.3     42.1 January
+##  2 1     2     21           103         5  1232         6       47.1 January
+##  3 1     3     21           506        10 10975         6.1     51.6 January
+##  4 1     4     21           343        14  9554         4.4     54.2 January
+##  5 1     5     21           569        10 11417         6       59   January
+##  6 1     6     21           273        10  6696         3.1     62.1 January
+##  7 1     7     21           520        12 15247         7       50.5 January
+##  8 1     8     21           291        11  4997         2.4     43.1 January
+##  9 1     9     21           165         9  3375         1.5     42.1 January
+## 10 1     12    21           238        12  4306         1.9     37.8 January
+## # … with 40 more rows</code></pre>
+<p><em>Using the mutate function, I created a new column that converted the average temperature from degrees Celsius to degrees Fahrenheit.</em></p>
+<pre class="r"><code>#Mutate funtion 
+Joined_Fitness_Data %&gt;% mutate(Avg_temp_celcius = (Avg_Temp - 32)*(5/9)) %&gt;% head()</code></pre>
+<pre><code>##     Date Cal_burned Hrs_stood Steps Dist_walked Avg_Temp Avg_temp_celcius
+## 1 1/1/21        145         7  2937         1.3     42.1         5.611111
+## 2 1/2/21        103         5  1232         6.0     47.1         8.388889
+## 3 1/3/21        506        10 10975         6.1     51.6        10.888889
+## 4 1/4/21        343        14  9554         4.4     54.2        12.333333
+## 5 1/5/21        569        10 11417         6.0     59.0        15.000000
+## 6 1/6/21        273        10  6696         3.1     62.1        16.722222</code></pre>
+<p><em>Using the summarize function, I first grouped the data by month and then computed the mean for calories burned, hours stood, steps taken, distance walked, and averge temperature for each month.</em></p>
+<pre class="r"><code>#Summarize function 
+Joined_Fitness_Data %&gt;% separate(Date,into=c(&quot;Month&quot;, &quot;Day&quot;, &quot;Year&quot;)) %&gt;% 
+  mutate(Month2 = recode_factor(Month, `1`=&quot;January&quot;, `2`=&quot;Ferbruary&quot;)) %&gt;%
+  group_by(Month2) %&gt;% 
+  summarize(mean_cal_burn=mean(Cal_burned,na.rm=T),mean_hrs_stood=mean(Hrs_stood,na.rm=T), mean_steps=mean(Steps,na.rm=T), mean_dist_walk=mean(Dist_walked,na.rm=T), mean_avg_temp=mean(Avg_Temp,na.rm=T))</code></pre>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre><code>## # A tibble: 2 x 6
+##   Month2    mean_cal_burn mean_hrs_stood mean_steps mean_dist_walk mean_avg_temp
+##   &lt;fct&gt;             &lt;dbl&gt;          &lt;dbl&gt;      &lt;dbl&gt;          &lt;dbl&gt;         &lt;dbl&gt;
+## 1 January            259.          10.0       5616.           2.82          53.4
+## 2 Ferbruary          222.           9.52      4468.           2.09          49.9</code></pre>
+</div>
+<div id="summary-statistics-1" class="section level5">
+<h5>summary statistics</h5>
+<pre class="r"><code>#Summary statistics for overall data 
+Joined_Fitness_Data %&gt;%
+  summarize(mean_cal.burn=mean(Cal_burned, na.rm=T),
+            sd_cal.burn=sd(Cal_burned, na.rm=T),
+            min_cal.burn=min(Cal_burned),
+            max_cal.burn=max(Cal_burned),
+            var_cal.burn=var(Cal_burned, na.rm=T),
+  mean_hrs.stood=mean(Hrs_stood, na.rm=T),
+            sd_hrs.stood=sd(Hrs_stood, na.rm=T),
+            min_hrs.stood=min(Hrs_stood),
+            max_hrs.stood=max(Hrs_stood),
+            var_hrs.stood=var(Hrs_stood, na.rm=T),
+  mean_steps=mean(Steps, na.rm=T),
+            sd_steps=sd(Steps, na.rm=T),
+            min_steps=min(Steps),
+            max_steps=max(Steps),
+            var_steps=var(Steps, na.rm=T),
+  mean_dist.walked=mean(Dist_walked, na.rm=T),
+            sd_dist.walked=sd(Dist_walked, na.rm=T),
+            min_dist.walked=min(Dist_walked),
+            max_dist.walked=max(Dist_walked),
+            var_dist.walked=var(Dist_walked, na.rm=T),
+  mean_avg.temp=mean(Avg_Temp, na.rm=T),
+            sd_avg.temp=sd(Avg_Temp, na.rm=T),
+            min_avg.temp=min(Avg_Temp),
+            max_avg.temp=max(Avg_Temp),
+            var_avg.temp=var(Avg_Temp, na.rm=T)) %&gt;%
+  pivot_longer(1:25,names_to=&quot;Summary_Statistics&quot;, values_to=&quot;Value&quot;) %&gt;% 
+  separate(&quot;Summary_Statistics&quot;, into=c(&quot;Summary_Statistic&quot;,&quot;Variable&quot;),sep=&quot;_&quot;) %&gt;%
+  pivot_wider(names_from = &quot;Summary_Statistic&quot;,values_from=&quot;Value&quot;)</code></pre>
+<pre><code>## # A tibble: 5 x 6
+##   Variable       mean      sd    min     max        var
+##   &lt;chr&gt;         &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
+## 1 cal.burn     244.    100.     90     569     10034.  
+## 2 hrs.stood      9.82    2.05    5      14         4.19
+## 3 steps       5134.   3048.   1058   15247   9293148.  
+## 4 dist.walked    2.51    1.55    0.5     7         2.39
+## 5 avg.temp      51.9    10.1    24.8    71.4     103.</code></pre>
+<pre class="r"><code>#Summary statistics for grouped data 
+Joined_Fitness_Data %&gt;% separate(Date,into=c(&quot;Month&quot;, &quot;Day&quot;, &quot;Year&quot;)) %&gt;% 
+  mutate(Month2 = recode_factor(Month, `1`=&quot;January&quot;, `2`=&quot;Ferbruary&quot;)) %&gt;%
+  group_by(Month2) %&gt;% 
+  summarize(mean_cal.burn=mean(Cal_burned, na.rm=T),
+            sd_cal.burn=sd(Cal_burned, na.rm=T),
+            min_cal.burn=min(Cal_burned),
+            max_cal.burn=max(Cal_burned),
+            var_cal.burn=var(Cal_burned, na.rm=T),
+  mean_hrs.stood=mean(Hrs_stood, na.rm=T),
+            sd_hrs.stood=sd(Hrs_stood, na.rm=T),
+            min_hrs.stood=min(Hrs_stood),
+            max_hrs.stood=max(Hrs_stood),
+            var_hrs.stood=var(Hrs_stood, na.rm=T),
+  mean_steps=mean(Steps, na.rm=T),
+            sd_steps=sd(Steps, na.rm=T),
+            min_steps=min(Steps),
+            max_steps=max(Steps),
+            var_steps=var(Steps, na.rm=T),
+  mean_dist.walked=mean(Dist_walked, na.rm=T),
+            sd_dist.walked=sd(Dist_walked, na.rm=T),
+            min_dist.walked=min(Dist_walked),
+            max_dist.walked=max(Dist_walked),
+            var_dist.walked=var(Dist_walked, na.rm=T),
+  mean_avg.temp=mean(Avg_Temp, na.rm=T),
+            sd_avg.temp=sd(Avg_Temp, na.rm=T),
+            min_avg.temp=min(Avg_Temp),
+            max_avg.temp=max(Avg_Temp),
+            var_avg.temp=var(Avg_Temp, na.rm=T))%&gt;%
+  pivot_longer(-1,names_to=&quot;Summary_Statistics&quot;, values_to=&quot;Value&quot;) %&gt;% separate(&quot;Summary_Statistics&quot;, into=c(&quot;Summary_Statistic&quot;,&quot;Variable&quot;),sep=&quot;_&quot;) %&gt;% pivot_wider(names_from = &quot;Summary_Statistic&quot;,values_from=&quot;Value&quot;)</code></pre>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre><code>## # A tibble: 10 x 7
+##    Month2    Variable       mean       sd    min     max          var
+##    &lt;fct&gt;     &lt;chr&gt;         &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;
+##  1 January   cal.burn     259.    120.     103     569      14376.   
+##  2 January   hrs.stood     10.0     2.15     5      14          4.61 
+##  3 January   steps       5616.   3642.    1232   15247   13264470.   
+##  4 January   dist.walked    2.82    1.85     0.9     7          3.43 
+##  5 January   avg.temp      53.4     7.60    37.8    66.2       57.8  
+##  6 Ferbruary cal.burn     222.     60.1     90     326       3610.   
+##  7 Ferbruary hrs.stood      9.52    1.91     5      12          3.66 
+##  8 Ferbruary steps       4468.   1843.    1058    8427    3395612.   
+##  9 Ferbruary dist.walked    2.09    0.856    0.5     3.8        0.732
+## 10 Ferbruary avg.temp      49.9    12.8     24.8    71.4      164.</code></pre>
+<p><em>To compute the summary statistics for the overall data I used the summarize() function and in it I computed mean, standard deviation, min, max, and variance for each of my numeric variables. Then to make the results easier to read, I pivoted the table longer so that all the summary statistics for all the variables were in one column and the values in another column. From there I separated the first column so that the summary statistics were in their own column and the variables in their own column. After that, I pivoted the table wider so that the variables had their own rows and the summary statistics had their own columns.</em></p>
+<p><em>After computing the summary statistics for the overall data, I grouped the data by month and computed the mean, standard deviation, min, max, and variance for each numeric variable. I used pivot_longer and pivot_wider in the same way as before to make the results easier to read.</em></p>
+<p><em>After computing the summary statistics that were grouped by month, the results showed that I burned more calories, stood for more hours per day, walked a greater distance, and had more daily steps in January than in February.</em></p>
+</div>
+</div>
+<div id="question-4" class="section level2">
+<h2>Question 4</h2>
+<div id="correlation-heatmap" class="section level5">
+<h5>Correlation heatmap</h5>
+<pre class="r"><code>cormat &lt;- Joined_Fitness_Data %&gt;% select_if(is.numeric) %&gt;% cor(use=&quot;pair&quot;)
+
+tidycor &lt;- cormat %&gt;% as.data.frame %&gt;% rownames_to_column(&quot;var1&quot;) %&gt;% pivot_longer(-1,names_to=&quot;var2&quot;,values_to=&quot;correlation&quot;)
+tidycor</code></pre>
+<pre><code>## # A tibble: 25 x 3
+##    var1       var2        correlation
+##    &lt;chr&gt;      &lt;chr&gt;             &lt;dbl&gt;
+##  1 Cal_burned Cal_burned        1    
+##  2 Cal_burned Hrs_stood         0.505
+##  3 Cal_burned Steps             0.932
+##  4 Cal_burned Dist_walked       0.818
+##  5 Cal_burned Avg_Temp          0.355
+##  6 Hrs_stood  Cal_burned        0.505
+##  7 Hrs_stood  Hrs_stood         1    
+##  8 Hrs_stood  Steps             0.397
+##  9 Hrs_stood  Dist_walked       0.195
+## 10 Hrs_stood  Avg_Temp          0.444
+## # … with 15 more rows</code></pre>
+<pre class="r"><code>tidycor %&gt;% ggplot(aes(var1,var2,fill=correlation))+
+  geom_tile()+ 
+  scale_fill_gradient2(low=&quot;red&quot;, mid=&quot;white&quot;, high=&quot;blue&quot;) +
+  geom_text(aes(label=round(correlation,2)),color=&quot;black&quot;, size=4)+
+  theme(axis.text.x=element_text(angle=90, hjust=1))+
+  coord_fixed()</code></pre>
+<p><img src="../../project/project1_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><em>The correlation heatmap shows that there is a very strong correlation between number of steps taken and number or calories burned (0.93). Other strong correlations are between distance walked and calories burned (0.82) as well as between distance walked and number of steps takes (0.86). There were also some really weak correlations such as between distance walked and average temperature (0.26), distance walked and hours stood (0.2), and number of steps taken and average temperature (0.32).</em></p>
+</div>
+<div id="scatterplot" class="section level5">
+<h5>Scatterplot</h5>
+<pre class="r"><code>#Scatterplot showing steps vs distance walked vs calories burned
+ggplot(Joined_Fitness_Data, aes(Steps, Dist_walked)) + geom_point(aes(color=Cal_burned))+
+  ggtitle(&quot;Steps vs. Distance Walked vs. Calories Burned&quot;)</code></pre>
+<p><img src="../../project/project1_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><em>This scatterpot is showing the relationship between number of steps taken, distance walked, and calories burned. This plot shows that there is a very strong linear relationship (with the exception of a few outliers) between distance walked and number of steps taken. Additionally it shows that as number of steps and distance walked increases so does the number of calories burned.</em></p>
+</div>
+<div id="bar-graph" class="section level5">
+<h5>Bar Graph</h5>
+<pre class="r"><code>#Bar Graph of Temp vs Distance walked 
+Fitness_by_month &lt;- Joined_Fitness_Data %&gt;% separate(Date,into=c(&quot;Month&quot;, &quot;Day&quot;, &quot;Year&quot;)) %&gt;% 
+  mutate(Month2 = recode_factor(Month, `1`=&quot;January&quot;, `2`=&quot;Ferbruary&quot;)) %&gt;%
+  group_by(Month2)
+
+ggplot(Fitness_by_month, aes(x=Month2, y=Dist_walked))+ geom_bar(stat=&quot;summary&quot;, fill=&quot;Pink&quot;)+
+  scale_y_continuous(breaks=seq(0,3,.1))+
+  ggtitle(&quot;Average Distance Walked Per Month&quot;)</code></pre>
+<pre><code>## No summary function supplied, defaulting to `mean_se()`</code></pre>
+<p><img src="../../project/project1_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><em>This bar graph is showing the average distance walked per month. According to the graph I walked an average of about 2.8 miles in January and about 2.1 miles in February. Therefore, I walked more in January than I did in February.</em></p>
+</div>
+</div>
+<div id="question-5" class="section level2">
+<h2>Question 5</h2>
+<div id="pam-clustering" class="section level5">
+<h5>PAM Clustering</h5>
+<p><em>In order to perform PAM on the numeric variables of my data, I first computed the average silhouette width for 2-10 clusters and plotted the result. Based on this plot I decided to choose 2 clusters in order to maximize the silhouette width. After that I ran PAM with 2 clusters and plotted the results.</em></p>
+<pre class="r"><code>Joined_Fitness_Data1 &lt;- Joined_Fitness_Data %&gt;% select(-Date)
+
+library(cluster)
+sil_width &lt;- vector()
+for(i in 2:10){
+  kms &lt;- kmeans(Joined_Fitness_Data1,centers=i)
+  sil &lt;- silhouette(kms$cluster,dist(Joined_Fitness_Data1))
+  sil_width[i]&lt;-mean(sil[,3])
+}
+ggplot()+geom_line(aes(x=1:10,y=sil_width))+scale_x_continuous(name=&quot;k&quot;,breaks=1:10)</code></pre>
+<pre><code>## Warning: Removed 1 row(s) containing missing values (geom_path).</code></pre>
+<p><img src="../../project/project1_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<pre class="r"><code>pam1 &lt;- Joined_Fitness_Data1 %&gt;% pam(k=2)
+pam1</code></pre>
+<pre><code>## Medoids:
+##      ID Cal_burned Hrs_stood Steps Dist_walked Avg_Temp
+## [1,] 31        171         9  3361         1.5     51.0
+## [2,] 11        294         7  9062         4.2     45.3
+## Clustering vector:
+##  [1] 1 1 2 2 2 2 2 1 1 1 2 1 1 1 1 1 1 1 2 1 1 1 2 1 1 1 2 2 1 1 1 1 2 1 1 1 1 1
+## [39] 1 1 1 1 1 1 1 1 2 1 2 1
+## Objective function:
+##    build     swap 
+## 1335.555 1176.223 
+## 
+## Available components:
+##  [1] &quot;medoids&quot;    &quot;id.med&quot;     &quot;clustering&quot; &quot;objective&quot;  &quot;isolation&quot; 
+##  [6] &quot;clusinfo&quot;   &quot;silinfo&quot;    &quot;diss&quot;       &quot;call&quot;       &quot;data&quot;</code></pre>
+<pre class="r"><code>library(GGally)</code></pre>
+<pre><code>## Registered S3 method overwritten by &#39;GGally&#39;:
+##   method from   
+##   +.gg   ggplot2</code></pre>
+<pre class="r"><code>Joined_Fitness_Data1 %&gt;% mutate(cluster=as.factor(pam1$clustering)) %&gt;%
+  ggpairs(columns=c(&quot;Cal_burned&quot;,&quot;Hrs_stood&quot;, &quot;Steps&quot;, &quot;Dist_walked&quot;, &quot;Avg_Temp&quot;), aes(color=cluster))</code></pre>
+<p><img src="../../project/project1_files/figure-html/unnamed-chunk-13-2.png" width="672" /></p>
+<pre class="r"><code>plot(pam1,which=2)</code></pre>
+<p><img src="../../project/project1_files/figure-html/unnamed-chunk-13-3.png" width="672" /></p>
+<p><em>The results of PAM show that the two variables with the strongest correlation were number of steps and calories burned. The two variables with with the weakest correlation were distance walked and hours stood. Additionally, the average silhouette width was 0.68 which means that a reasonable structure has been found.</em></p>
+</div>
+</div>
+
+            
+        <hr>         <div class="related-posts">
+                <h5>Related Posts</h5>
+                
+              </div> 
+            </div>
+          </div>
+
+   <hr>  <div class="disqus">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+
+    (function() {
+      
+      
+      if (window.location.hostname == "localhost")
+        return;
+
+      var disqus_shortname = '';
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div> 
+        </div>
+      </div>
+    </div>
+
+    
+    <footer>
+  <div id="footer">
+    <div class="container">
+      <p class="text-muted">&copy; All rights reserved. Powered by <a href="https://gohugo.io/">Hugo</a> and
+      <a href="http://www.github.com/nurlansu/hugo-sustain/">sustain</a> with ♥</p>
+    </div>
+  </div>
+</footer>
+<div class="footer"></div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="../../js/docs.min.js"></script>
+<script src="../../js/main.js"></script>
+
+<script src="../../js/ie10-viewport-bug-workaround.js"></script>
+
+
+    
+  </body>
+</html>

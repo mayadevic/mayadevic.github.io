@@ -1,0 +1,235 @@
+---
+title: "Project 1"
+author: "Maya Devic"
+date: "3/31/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Project 1 
+
+```{R}
+library(tidyverse)
+Apple_Watch_Data <- read.csv("Apple_Watch_Data.csv")
+Weather_Data <- read.csv("Weather_Data.csv")
+```
+
+## Introduction 
+##### The two datasets I chose for this project were Apple_Watch_Data and Weather_Data. The Apple_Watch_Data dataset came from the data on my apple watch fitness app in which I took data for the number of calories burned, steps taken, hours stood, and distance walked over 50 days in Janruary and February. The Weather_Data has the average temperature for the corresponding days with the apple watch fitness app for Leander Texas, the location where the fitness stats were recorded. I chose this data because I was interested in seeing the relationships between various fitness variables that are recorded on my watch. I expect to see positive relationships between calories burned, steps takes, distance walked, and hours stood. However, I am interested in seeing if temperature plays a role in fitness activity. I would assume that cooler temperature would decrease activity. 
+
+## Question 1
+
+##### The datasets used for this project were already tidy so pivot_wider and pivot_longer were used in question 3. 
+
+## Question 2
+
+##### Joining 2 Datasets: The two datasets I will be joining is Apple_Watch_Data, which has data from my apple watch fitness app containing the date, calories burned, hours stood, number of steps, and distance walked with Weather_Data, which includes the average daily temperatures for Leander Texas on the same days the fitness stats were recorded. 
+
+```{R}
+Joined_Fitness_Data <- Apple_Watch_Data %>% left_join(Weather_Data, by="Date")
+```
+
+*The type of join that was performed was a left join. There were 50 observations in each dataset and 50 observations after joining. There were no observations that were dropped because for each day that the watch recorded the fitness data, there was weather data for that day available. This particular join was used because I wanted to add on the weather data for the days that the watch recorded fitness activity. So, it was easiest to do a left join in order to add that information by the corresponding date since they shared that variable in common.*
+
+## Question 3
+
+##### Summary Statistics:
+##### dplyr functions 
+
+*Using the filter function, I filtered the dataset so that it only showed the data for when the number of steps was greater than or equal to 10,000. I did this in order to see on how many of the 50 days I met my 10,000 step goal. The results of this showed that I only met my goal on 4/50 days.*
+
+```{R}
+#Filter function 
+Joined_Fitness_Data %>% filter(Steps >= 10000)
+```
+
+*Using the select function, I selected only the date, calories burned, and distance walked columns. Then I arranged the dataset by distance walked. I did this in order to see if walking a greater distance burned more calories. The results of this showed that there is a positive relationship between distance walked and calories burned, however it is not perfect because on some days I walked a shorter distance but burned more calories.*
+
+```{R}
+#Select function 
+Joined_Fitness_Data %>% select(Date, Cal_burned, Dist_walked) %>% arrange(Dist_walked) %>% head()
+```
+
+*Using the arrange function, I arranged my data from lowest temperature to highest temperature to see if colder weather had an effect on fitness activity. This shows that typically, although not always the case, the temperature seems to be higher on days that I burned more calories. *
+
+```{R}
+#Arrange function 
+Joined_Fitness_Data %>% arrange(Avg_Temp) %>% head()
+```
+
+*Using the group_by function, I grouped my data by Month. In order to do that, I first had to separate the month variable into "month", "day" and, "year". After that I made a new column called "month2" in which I recoded the month column so that "1" was equal to "January" and "2" was equal to "February". After that I grouped the data by Month2.*
+
+```{R}
+#group_by function 
+Joined_Fitness_Data %>% separate(Date,into=c("Month", "Day", "Year")) %>% 
+  mutate(Month2 = recode_factor(Month, `1`="January", `2`="Ferbruary")) %>%
+  group_by(Month2)
+```
+
+*Using the mutate function, I created a new column that converted the average temperature from degrees Celsius to degrees Fahrenheit.*
+
+```{R}
+#Mutate funtion 
+Joined_Fitness_Data %>% mutate(Avg_temp_celcius = (Avg_Temp - 32)*(5/9)) %>% head()
+```
+
+*Using the summarize function, I first grouped the data by month and then computed the mean for calories burned, hours stood, steps taken, distance walked, and averge temperature for each month.*
+
+```{R}
+#Summarize function 
+Joined_Fitness_Data %>% separate(Date,into=c("Month", "Day", "Year")) %>% 
+  mutate(Month2 = recode_factor(Month, `1`="January", `2`="Ferbruary")) %>%
+  group_by(Month2) %>% 
+  summarize(mean_cal_burn=mean(Cal_burned,na.rm=T),mean_hrs_stood=mean(Hrs_stood,na.rm=T), mean_steps=mean(Steps,na.rm=T), mean_dist_walk=mean(Dist_walked,na.rm=T), mean_avg_temp=mean(Avg_Temp,na.rm=T))
+```
+
+##### summary statistics 
+
+```{R}
+#Summary statistics for overall data 
+Joined_Fitness_Data %>%
+  summarize(mean_cal.burn=mean(Cal_burned, na.rm=T),
+            sd_cal.burn=sd(Cal_burned, na.rm=T),
+            min_cal.burn=min(Cal_burned),
+            max_cal.burn=max(Cal_burned),
+            var_cal.burn=var(Cal_burned, na.rm=T),
+  mean_hrs.stood=mean(Hrs_stood, na.rm=T),
+            sd_hrs.stood=sd(Hrs_stood, na.rm=T),
+            min_hrs.stood=min(Hrs_stood),
+            max_hrs.stood=max(Hrs_stood),
+            var_hrs.stood=var(Hrs_stood, na.rm=T),
+  mean_steps=mean(Steps, na.rm=T),
+            sd_steps=sd(Steps, na.rm=T),
+            min_steps=min(Steps),
+            max_steps=max(Steps),
+            var_steps=var(Steps, na.rm=T),
+  mean_dist.walked=mean(Dist_walked, na.rm=T),
+            sd_dist.walked=sd(Dist_walked, na.rm=T),
+            min_dist.walked=min(Dist_walked),
+            max_dist.walked=max(Dist_walked),
+            var_dist.walked=var(Dist_walked, na.rm=T),
+  mean_avg.temp=mean(Avg_Temp, na.rm=T),
+            sd_avg.temp=sd(Avg_Temp, na.rm=T),
+            min_avg.temp=min(Avg_Temp),
+            max_avg.temp=max(Avg_Temp),
+            var_avg.temp=var(Avg_Temp, na.rm=T)) %>%
+  pivot_longer(1:25,names_to="Summary_Statistics", values_to="Value") %>% 
+  separate("Summary_Statistics", into=c("Summary_Statistic","Variable"),sep="_") %>%
+  pivot_wider(names_from = "Summary_Statistic",values_from="Value")
+
+#Summary statistics for grouped data 
+Joined_Fitness_Data %>% separate(Date,into=c("Month", "Day", "Year")) %>% 
+  mutate(Month2 = recode_factor(Month, `1`="January", `2`="Ferbruary")) %>%
+  group_by(Month2) %>% 
+  summarize(mean_cal.burn=mean(Cal_burned, na.rm=T),
+            sd_cal.burn=sd(Cal_burned, na.rm=T),
+            min_cal.burn=min(Cal_burned),
+            max_cal.burn=max(Cal_burned),
+            var_cal.burn=var(Cal_burned, na.rm=T),
+  mean_hrs.stood=mean(Hrs_stood, na.rm=T),
+            sd_hrs.stood=sd(Hrs_stood, na.rm=T),
+            min_hrs.stood=min(Hrs_stood),
+            max_hrs.stood=max(Hrs_stood),
+            var_hrs.stood=var(Hrs_stood, na.rm=T),
+  mean_steps=mean(Steps, na.rm=T),
+            sd_steps=sd(Steps, na.rm=T),
+            min_steps=min(Steps),
+            max_steps=max(Steps),
+            var_steps=var(Steps, na.rm=T),
+  mean_dist.walked=mean(Dist_walked, na.rm=T),
+            sd_dist.walked=sd(Dist_walked, na.rm=T),
+            min_dist.walked=min(Dist_walked),
+            max_dist.walked=max(Dist_walked),
+            var_dist.walked=var(Dist_walked, na.rm=T),
+  mean_avg.temp=mean(Avg_Temp, na.rm=T),
+            sd_avg.temp=sd(Avg_Temp, na.rm=T),
+            min_avg.temp=min(Avg_Temp),
+            max_avg.temp=max(Avg_Temp),
+            var_avg.temp=var(Avg_Temp, na.rm=T))%>%
+  pivot_longer(-1,names_to="Summary_Statistics", values_to="Value") %>% separate("Summary_Statistics", into=c("Summary_Statistic","Variable"),sep="_") %>% pivot_wider(names_from = "Summary_Statistic",values_from="Value")
+```
+
+*To compute the summary statistics for the overall data I used the summarize() function and in it I computed mean, standard deviation, min, max, and variance for each of my numeric variables. Then to make the results easier to read, I pivoted the table longer so that all the summary statistics for all the variables were in one column and the values in another column. From there I separated the first column so that the summary statistics were in their own column and the variables in their own column. After that, I pivoted the table wider so that the variables had their own rows and the summary statistics had their own columns.*
+
+*After computing the summary statistics for the overall data, I grouped the data by month and computed the mean, standard deviation, min, max, and variance for each numeric variable. I used pivot_longer and pivot_wider in the same way as before to make the results easier to read.*
+
+*After computing the summary statistics that were grouped by month, the results showed that I burned more calories, stood for more hours per day, walked a greater distance, and had more daily steps in January than in February.*
+
+## Question 4
+##### Correlation heatmap 
+
+```{R}
+cormat <- Joined_Fitness_Data %>% select_if(is.numeric) %>% cor(use="pair")
+
+tidycor <- cormat %>% as.data.frame %>% rownames_to_column("var1") %>% pivot_longer(-1,names_to="var2",values_to="correlation")
+tidycor
+
+tidycor %>% ggplot(aes(var1,var2,fill=correlation))+
+  geom_tile()+ 
+  scale_fill_gradient2(low="red", mid="white", high="blue") +
+  geom_text(aes(label=round(correlation,2)),color="black", size=4)+
+  theme(axis.text.x=element_text(angle=90, hjust=1))+
+  coord_fixed()
+```
+
+*The correlation heatmap shows that there is a very strong correlation between number of steps taken and number or calories burned (0.93). Other strong correlations are between distance walked and calories burned (0.82) as well as between distance walked and number of steps takes (0.86). There were also some really weak correlations such as between distance walked and average temperature (0.26), distance walked and hours stood (0.2), and number of steps taken and average temperature (0.32).*
+
+##### Scatterplot
+
+```{R}
+#Scatterplot showing steps vs distance walked vs calories burned
+ggplot(Joined_Fitness_Data, aes(Steps, Dist_walked)) + geom_point(aes(color=Cal_burned))+
+  ggtitle("Steps vs. Distance Walked vs. Calories Burned")
+```
+
+*This scatterpot is showing the relationship between number of steps taken, distance walked, and calories burned. This plot shows that there is a very strong linear relationship (with the exception of a few outliers) between distance walked and number of steps taken. Additionally it shows that as number of steps and distance walked increases so does the number of calories burned.*
+
+##### Bar Graph  
+
+```{R}
+#Bar Graph of Temp vs Distance walked 
+Fitness_by_month <- Joined_Fitness_Data %>% separate(Date,into=c("Month", "Day", "Year")) %>% 
+  mutate(Month2 = recode_factor(Month, `1`="January", `2`="Ferbruary")) %>%
+  group_by(Month2)
+
+ggplot(Fitness_by_month, aes(x=Month2, y=Dist_walked))+ geom_bar(stat="summary", fill="Pink")+
+  scale_y_continuous(breaks=seq(0,3,.1))+
+  ggtitle("Average Distance Walked Per Month")
+```
+
+*This bar graph is showing the average distance walked per month. According to the graph I walked an average of about 2.8 miles in January and about 2.1 miles in February. Therefore, I walked more in January than I did in February.*
+
+## Question 5 
+##### PAM Clustering
+
+*In order to perform PAM on the numeric variables of my data, I first computed the average silhouette width for 2-10 clusters and plotted the result. Based on this plot I decided to choose 2 clusters in order to maximize the silhouette width. After that I ran PAM with 2 clusters and plotted the results.*
+
+```{R}
+Joined_Fitness_Data1 <- Joined_Fitness_Data %>% select(-Date)
+
+library(cluster)
+sil_width <- vector()
+for(i in 2:10){
+  kms <- kmeans(Joined_Fitness_Data1,centers=i)
+  sil <- silhouette(kms$cluster,dist(Joined_Fitness_Data1))
+  sil_width[i]<-mean(sil[,3])
+}
+ggplot()+geom_line(aes(x=1:10,y=sil_width))+scale_x_continuous(name="k",breaks=1:10)
+
+pam1 <- Joined_Fitness_Data1 %>% pam(k=2)
+pam1
+
+library(GGally)
+
+Joined_Fitness_Data1 %>% mutate(cluster=as.factor(pam1$clustering)) %>%
+  ggpairs(columns=c("Cal_burned","Hrs_stood", "Steps", "Dist_walked", "Avg_Temp"), aes(color=cluster))
+
+plot(pam1,which=2)
+
+```
+
+*The results of PAM show that the two variables with the strongest correlation were number of steps and calories burned. The two variables with with the weakest correlation were distance walked and hours stood. Additionally, the average silhouette width was 0.68 which means that a reasonable structure has been found.*
+

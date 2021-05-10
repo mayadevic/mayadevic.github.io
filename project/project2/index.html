@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Maya Devic" />
+    
+    <link rel="shortcut icon" type="image/x-icon" href="../../img/favicon.ico">
+    <title>Project 2</title>
+    <meta name="generator" content="Hugo 0.83.1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../../css/main.css" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,200bold,400old" />
+    
+    <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+    
+  </head>
+
+  <body>
+    <div id="wrap">
+      
+      <nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="../../"><i class="fa fa-home"></i></a>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="navbar-collapse collapse" id="navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+        <li><a href="../../post/">BLOG</a></li>
+        
+        <li><a href="../../projects/">PROJECTS</a></li>
+        
+        <li><a href="../../resume/">RESUME</a></li>
+        
+      
+      </ul>
+    </div>
+  </div>
+</nav>
+
+      <div class="container">
+        <div class="blog-post">
+          <h3>
+            <strong><a href="../../project/project2/">Project 2</a></strong>
+          </h3>
+        </div>
+ 
+<div class="blog-title">
+          <h4>
+         January 1, 0001 
+            &nbsp;&nbsp;
+            
+          </h4>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="blogpost">
+              
+
+
+<pre class="r"><code>Credit &lt;- read.csv(&quot;Credit.csv&quot;)</code></pre>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<div id="the-dataset-i-chose-for-this-project-was-the-built-in-r-dataset-called-credit.-this-dataset-has-11-variables-and-400-observations.-the-variables-in-this-dataset-are-income-limit-rating-cards-age-eduction-gender-student-married-ethnicity-and-balance.-the-income-variable-is-recording-each-persons-income-the-limit-variable-is-recording-each-persons-credit-limit-the-rating-variable-is-recording-each-persons-credit-rating-the-age-variable-is-recording-each-persons-age-the-education-variable-is-recording-the-number-of-years-of-education-completed-by-each-person-the-gender-variable-is-recording-each-persons-gender-the-student-variable-is-indicating-wheather-each-person-was-a-student-or-not-the-ethnicity-variable-is-recording-each-persons-ethnicity-and-the-balance-variable-is-recording-the-average-credit-card-balance-for-each-person." class="section level5">
+<h5>The dataset I chose for this project was the built-in r dataset called Credit. This dataset has 11 variables and 400 observations. The variables in this dataset are income, limit, rating, cards, age, eduction, gender, student, married, ethnicity, and balance. The income variable is recording each persons income, the limit variable is recording each persons credit limit, the rating variable is recording each persons credit rating, the age variable is recording each persons age, the education variable is recording the number of years of education completed by each person, the gender variable is recording each persons gender, the student variable is indicating wheather each person was a student or not, the ethnicity variable is recording each persons ethnicity, and the balance variable is recording the average credit card balance for each person.</h5>
+</div>
+</div>
+<div id="question-1" class="section level2">
+<h2>Question 1</h2>
+<div id="manova-test" class="section level5">
+<h5>MANOVA Test</h5>
+<pre class="r"><code>man1 &lt;- manova(cbind(Income, Limit, Rating, Cards, Age, Education, 
+    Balance) ~ Student, data = Credit)
+summary(man1)</code></pre>
+<pre><code>## Df Pillai approx F num Df den Df Pr(&gt;F)
+## Student 1 0.63389 96.959 7 392 &lt; 2.2e-16 ***
+## Residuals 398
+## ---
+## Signif. codes: 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1
+&#39; &#39; 1</code></pre>
+<pre class="r"><code>summary.aov(man1)</code></pre>
+<pre><code>## Response Income :
+## Df Sum Sq Mean Sq F value Pr(&gt;F)
+## Student 1 191 191.02 0.1535 0.6955
+## Residuals 398 495430 1244.80
+##
+## Response Limit :
+## Df Sum Sq Mean Sq F value Pr(&gt;F)
+## Student 1 76914 76914 0.0144 0.9045
+## Residuals 398 2125708072 5340975
+##
+## Response Rating :
+## Df Sum Sq Mean Sq F value Pr(&gt;F)
+## Student 1 39 39.3 0.0016 0.9678
+## Residuals 398 9551845 23999.6
+##
+## Response Cards :
+## Df Sum Sq Mean Sq F value Pr(&gt;F)
+## Student 1 0.51 0.51361 0.2726 0.6019
+## Residuals 398 749.76 1.88383
+##
+## Response Age :
+## Df Sum Sq Mean Sq F value Pr(&gt;F)
+## Student 1 106 105.75 0.3548 0.5517
+## Residuals 398 118619 298.04
+##
+## Response Education :
+## Df Sum Sq Mean Sq F value Pr(&gt;F)
+## Student 1 20.3 20.2500 2.0789 0.1501
+## Residuals 398 3876.8 9.7406
+##
+## Response Balance :
+## Df Sum Sq Mean Sq F value Pr(&gt;F)
+## Student 1 5658372 5658372 28.622 1.488e-07 ***
+## Residuals 398 78681540 197692
+## ---
+## Signif. codes: 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1
+&#39; &#39; 1</code></pre>
+<pre class="r"><code>pairwise.t.test(Credit$Balance, Credit$Student, p.adj = &quot;none&quot;)</code></pre>
+<pre><code>## 
+##  Pairwise comparisons using t tests with pooled SD 
+## 
+## data:  Credit$Balance and Credit$Student 
+## 
+##     No     
+## Yes 1.5e-07
+## 
+## P value adjustment method: none</code></pre>
+<p><em>The MANOVA test shows that at least one of the numeric variables differs by whether someone was a student or not (P-value = 2.2e-16). After running an ANOVA for all the numeric variables, the results showed that only the balance variable differed between students vs non-students. As a result, a pairwise t-test was done on the balance variable which confirmed that there was a significant difference in credit card balance for students vs non-students. There were a total of 9 tests done, including 1 MANOVA, 7 ANOVA, and 1 t-test. Therefore, the adjusted alpha should be 0.05/9=0.0056. Additionally, the probability of a Type 1 error occurring is 1-0.95^9=0.3698. For the MANOVA test there are a lot of assumptions such as random samples/independent observation, multivariate normality of dependent variables, homogeneity of within-group covariance matrices, linear relationships among dependent variables, no extreme univariate or multivariate outliers, and no multicollinearity. Because there are so many assumptions it is likely that not all of them were met</em></p>
+</div>
+</div>
+<div id="question-2" class="section level2">
+<h2>Question 2</h2>
+<div id="randomization-test" class="section level5">
+<h5>Randomization Test</h5>
+<pre class="r"><code>rand_dist &lt;- vector()
+for (i in 1:5000) {
+    new &lt;- data.frame(balance = sample(Credit$Balance), student = Credit$Student)
+    rand_dist[i] &lt;- mean(new[new$student == &quot;Yes&quot;, ]$balance) - 
+        mean(new[new$student == &quot;No&quot;, ]$balance)
+}
+Credit %&gt;% group_by(Student) %&gt;% summarize(means = mean(Balance)) %&gt;% 
+    summarize(`mean_diff:` = diff(means))</code></pre>
+<pre><code>## # A tibble: 1 x 1
+##   `mean_diff:`
+##          &lt;dbl&gt;
+## 1         396.</code></pre>
+<pre class="r"><code>mean(rand_dist &gt; 396.4556 | rand_dist &lt; -396.4556)</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="r"><code>hist(rand_dist, main = &quot;&quot;, ylab = &quot;&quot;)
+abline(v = c(396.4556, -396.4556), col = &quot;red&quot;)</code></pre>
+<p><img src="../../project/project2_files/figure-html/unnamed-chunk-3-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><em>The null hypothesis for this randomization test is that the mean difference in credit card balance is the same for students and non-students. The alternate hypothesis for this test is that the mean difference is not the same. After performing a randomization test, the results showed that the mean difference in credit card balance for students vs non-students was 396.4556. Additionally, the p-value for this was zero, meaning we could reject the null hypothesis and conclude that there is a significant difference in mean credit card balance between students and non-students.</em></p>
+</div>
+</div>
+<div id="question-3" class="section level2">
+<h2>Question 3</h2>
+<div id="linear-regression" class="section level5">
+<h5>Linear Regression</h5>
+<pre class="r"><code># Linear Regression
+fit &lt;- lm(Balance ~ Age + Education, data = Credit)
+summary(fit)</code></pre>
+<pre><code>##
+## Call:
+## lm(formula = Balance ~ Age + Education, data = Credit)
+##
+## Residuals:
+## Min 1Q Median 3Q Max
+## -529.42 -453.57 -61.98 336.97 1481.10
+##
+## Coefficients:
+## Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept) 533.21346 126.02995 4.231 2.89e-05 ***
+## Age 0.04969 1.33764 0.037 0.970
+## Education -1.18696 7.38319 -0.161 0.872
+## ---
+## Signif. codes: 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1
+&#39; &#39; 1
+##
+## Residual standard error: 460.9 on 397 degrees of freedom
+## Multiple R-squared: 6.846e-05, Adjusted R-squared:
+-0.004969
+## F-statistic: 0.01359 on 2 and 397 DF, p-value: 0.9865</code></pre>
+<pre class="r"><code>Credit$Age_c &lt;- (Credit$Age - mean(Credit$Age, na.rm = T))
+Credit$Education_c &lt;- (Credit$Education - mean(Credit$Education, 
+    na.rm = T))
+
+# Linear Regression with Interaction
+fit2 &lt;- lm(Balance ~ Age_c * Education_c, data = Credit)
+summary(fit2)</code></pre>
+<pre><code>##
+## Call:
+## lm(formula = Balance ~ Age_c * Education_c, data =
+Credit)
+##
+## Residuals:
+## Min 1Q Median 3Q Max
+## -578.79 -455.13 -58.63 335.46 1535.42
+##
+## Coefficients:
+## Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept) 520.08378 23.05469 22.559 &lt;2e-16 ***
+## Age_c 0.03978 1.33825 0.030 0.976
+## Education_c -1.43082 7.39225 -0.194 0.847
+## Age_c:Education_c -0.35339 0.43134 -0.819 0.413
+## ---
+## Signif. codes: 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1
+&#39; &#39; 1
+##
+## Residual standard error: 461.1 on 396 degrees of freedom
+## Multiple R-squared: 0.00176, Adjusted R-squared:
+-0.005802
+## F-statistic: 0.2328 on 3 and 396 DF, p-value: 0.8735</code></pre>
+<pre class="r"><code># Interaction Plot
+fit2 &lt;- lm(Balance ~ Age_c * Education_c, data = Credit)
+new1 &lt;- Credit
+new1$Age_c &lt;- mean(Credit$Age_c)
+new1$mean &lt;- predict(fit2, new1)
+new1$Age_c &lt;- mean(Credit$Age_c) + sd(Credit$Age_c)
+new1$plus.sd &lt;- predict(fit2, new1)
+new1$Age_c &lt;- mean(Credit$Age_c) - sd(Credit$Age_c)
+new1$minus.sd &lt;- predict(fit2, new1)
+newint &lt;- new1 %&gt;% select(Balance, Education_c, mean, plus.sd, 
+    minus.sd) %&gt;% gather(Age, value, -Balance, -Education_c)
+
+mycols &lt;- c(&quot;#619CFF&quot;, &quot;#F8766D&quot;, &quot;#00BA38&quot;)
+names(mycols) &lt;- c(&quot;-1 sd&quot;, &quot;mean&quot;, &quot;+1 sd&quot;)
+mycols = as.factor(mycols)
+
+ggplot(Credit, aes(Education_c, Balance), group = mycols) + geom_point() + 
+    geom_line(data = new1, aes(y = mean, color = &quot;mean&quot;)) + geom_line(data = new1, 
+    aes(y = plus.sd, color = &quot;+1 sd&quot;)) + geom_line(data = new1, 
+    aes(y = minus.sd, color = &quot;-1 sd&quot;)) + scale_color_manual(values = mycols) + 
+    labs(color = &quot;Age (cont)&quot;) + theme(legend.position = c(0.9, 
+    0.2))</code></pre>
+<p><img src="../../project/project2_files/figure-html/unnamed-chunk-4-1.png" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># R-squared
+summary(fit2)</code></pre>
+<pre><code>##
+## Call:
+## lm(formula = Balance ~ Age_c * Education_c, data =
+Credit)
+##
+## Residuals:
+## Min 1Q Median 3Q Max
+## -578.79 -455.13 -58.63 335.46 1535.42
+##
+## Coefficients:
+## Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept) 520.08378 23.05469 22.559 &lt;2e-16 ***
+## Age_c 0.03978 1.33825 0.030 0.976
+## Education_c -1.43082 7.39225 -0.194 0.847
+## Age_c:Education_c -0.35339 0.43134 -0.819 0.413
+## ---
+## Signif. codes: 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1
+&#39; &#39; 1
+##
+## Residual standard error: 461.1 on 396 degrees of freedom
+## Multiple R-squared: 0.00176, Adjusted R-squared:
+-0.005802
+## F-statistic: 0.2328 on 3 and 396 DF, p-value: 0.8735</code></pre>
+<pre class="r"><code># Normality assumption
+resids &lt;- fit2$residuals
+shapiro.test(resids)</code></pre>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  resids
+## W = 0.92555, p-value = 3.322e-13</code></pre>
+<pre class="r"><code># Linearity assumption
+fitted &lt;- lm(Balance ~ Age_c * Education_c, data = Credit)$fitted.values
+ggplot() + geom_point(aes(fitted, resids))</code></pre>
+<p><img src="../../project/project2_files/figure-html/unnamed-chunk-4-2.png" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Homoskedasticity Assumption
+library(sandwich)
+library(lmtest)
+bptest(fit2)</code></pre>
+<pre><code>## 
+##  studentized Breusch-Pagan test
+## 
+## data:  fit2
+## BP = 1.9225, df = 3, p-value = 0.5886</code></pre>
+<pre class="r"><code># Robust Standard Errors
+coeftest(fit2, vcov = vcovHC(fit2))[, 1:2]</code></pre>
+<pre><code>##                       Estimate Std. Error
+## (Intercept)       520.08377791 23.1864650
+## Age_c               0.03978218  1.4017730
+## Education_c        -1.43081736  7.5972451
+## Age_c:Education_c  -0.35338682  0.4753084</code></pre>
+<p><em>I decided to run a linear regression model predicting credit card balance from age and years of education completed. This linear regression model indicated that only the intercept was significant so age and years of education completed do not explain a significant amount of variation in credit card balance. The intercept value indicates that 533.21 is the predicted credit card balance when age and years of education is zero. The coefficient estimate for age is 0.049 and is the slope for age on credit card balance while holding education constant. The coefficient estimate for education is -1.187 and is the slope for education on credit card balance while holding age constant.</em>
+<em>For the linear regression with interaction, the intercept of 520.08 is the predicted credit card balance for participants of average age and average education level of (after mean centering age and education).</em>
+<em>The model explains 0.176% of the variation in the outcome.</em>
+<em>After checking the assumptions of linearity, normality, and homoskedasticity, the normality assumption was not met but the others were met.</em>
+<em>After recomputing the regression with robust standard errors the results were nearly the same as before with only slightly higher standard errors.</em></p>
+</div>
+</div>
+<div id="question-4" class="section level2">
+<h2>Question 4</h2>
+<div id="bootstrapped-standard-errors" class="section level5">
+<h5>Bootstrapped Standard Errors</h5>
+<pre class="r"><code>fit2 &lt;- lm(Balance ~ Age_c * Education_c, data = Credit)
+resids &lt;- fit$residuals
+fitted &lt;- fit$fitted.values
+
+resid_resamp &lt;- replicate(5000, {
+    new_resids &lt;- sample(resids, replace = TRUE)
+    Credit$new_y &lt;- fitted + new_resids
+    fit2 &lt;- lm(new_y ~ Age_c * Education_c, data = Credit)
+    coef(fit2)
+})
+resid_resamp %&gt;% t %&gt;% as.data.frame %&gt;% summarize_all(sd)</code></pre>
+<pre><code>##   (Intercept)    Age_c Education_c Age_c:Education_c
+## 1    23.22505 1.332684    7.376031         0.4262236</code></pre>
+<p><em>The bootstrapped standard errors were slightly lower than both the robust standard errors and the original standard errors. </em></p>
+</div>
+</div>
+<div id="question-5" class="section level2">
+<h2>Question 5</h2>
+<div id="logistic-regression-predicting-binary-variable" class="section level5">
+<h5>Logistic Regression Predicting Binary Variable</h5>
+<pre class="r"><code>data &lt;- Credit %&gt;% mutate(y = ifelse(Student == &quot;Yes&quot;, 1, 0))
+
+fit3 &lt;- lm(y ~ Balance + Cards, data = data)
+summary(fit3)</code></pre>
+<pre><code>##
+## Call:
+## lm(formula = y ~ Balance + Cards, data = data)
+##
+## Residuals:
+## Min 1Q Median 3Q Max
+## -0.34320 -0.14501 -0.06434 -0.01526 0.98903
+##
+## Coefficients:
+## Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept) 4.226e-02 3.721e-02 1.136 0.257
+## Balance 1.720e-04 3.175e-05 5.417 1.05e-07 ***
+## Cards -1.072e-02 1.064e-02 -1.007 0.315
+## ---
+## Signif. codes: 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1
+&#39; &#39; 1
+##
+## Residual standard error: 0.2905 on 397 degrees of
+freedom
+## Multiple R-squared: 0.06947, Adjusted R-squared: 0.06478
+## F-statistic: 14.82 on 2 and 397 DF, p-value: 6.214e-07</code></pre>
+<pre class="r"><code># Accuracy,Sensitivity,TPT,TNR,PPV,AUC
+prob &lt;- predict(fit3, type = &quot;response&quot;)
+class_diag(prob, data$y)</code></pre>
+<pre><code>##   acc sens spec ppv       auc
+## 1 0.9    0    1 NaN 0.7341319</code></pre>
+<pre class="r"><code># Confusion Matrix
+probs &lt;- predict(fit3, type = &quot;response&quot;)
+table(predict = as.numeric(probs &gt; 0.5), truth = data$y) %&gt;% 
+    addmargins</code></pre>
+<pre><code>##        truth
+## predict   0   1 Sum
+##     0   360  40 400
+##     Sum 360  40 400</code></pre>
+<pre class="r"><code># Density Plot
+data$logit &lt;- predict(fit3, type = &quot;response&quot;)
+data %&gt;% ggplot() + geom_density(aes(logit, color = Student, 
+    fill = Student), alpha = 0.4) + theme(legend.position = c(0.85, 
+    0.85)) + geom_vline(xintercept = 0) + xlab(&quot;logit (log-odds)&quot;) + 
+    geom_rug(aes(logit, color = Student)) + geom_text(x = -5, 
+    y = 0.07, label = &quot;TN = 431&quot;) + geom_text(x = -1.75, y = 0.008, 
+    label = &quot;FN = 19&quot;) + geom_text(x = 1, y = 0.006, label = &quot;FP = 13&quot;) + 
+    geom_text(x = 5, y = 0.04, label = &quot;TP = 220&quot;)</code></pre>
+<p><img src="../../project/project2_files/figure-html/unnamed-chunk-6-1.png" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># ROC Curve
+library(plotROC)
+ROCplot &lt;- ggplot(fit3) + geom_roc(aes(d = y, m = probs), n.cuts = 0)
+ROCplot</code></pre>
+<p><img src="../../project/project2_files/figure-html/unnamed-chunk-6-2.png" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>calc_auc(ROCplot)</code></pre>
+<pre><code>##   PANEL group       AUC
+## 1     1    -1 0.7341319</code></pre>
+<p><em>I decided to run a regression that predicted if someone was a student or not from credit card balance and the number of credit cards a person has. Based on this regression, only Balance was a significant predictor. Additionally, this model shows that for every one unit increase credit card balance, the y variable goes up by 1.720e-04. Also, for every one unit increase in the number of credit cards owned, the y variable goes down by 1.072e-02.</em>
+<em>The accuracy for this model was 0.9, the sensitivity was 0, the specificity was 1, and the AUC was 0.734.</em>
+<em>Since the AUC for this model was 0.734, this falls into the category of fair, so it is not great but not terrible.</em></p>
+</div>
+</div>
+<div id="question-6" class="section level2">
+<h2>Question 6</h2>
+<div id="logistic-regression-predicting-binary-variable-from-all-other-variable" class="section level5">
+<h5>Logistic Regression Predicting Binary Variable From All Other Variable</h5>
+<pre class="r"><code>data &lt;- Credit %&gt;% mutate(y = ifelse(Student == &quot;Yes&quot;, 1, 0))
+
+fit4 &lt;- glm(y ~ ., data = data)
+summary(fit4)</code></pre>
+<pre><code>##
+## Call:
+## glm(formula = y ~ ., data = data)
+##
+## Deviance Residuals:
+## Min 1Q Median 3Q Max
+## -4.627e-17 -3.197e-17 -2.721e-17 -2.170e-17 1.110e-16
+##
+## Coefficients: (3 not defined because of singularities)
+## Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept) 2.020e-17 2.029e-17 9.960e-01 0.3200
+## X -7.917e-21 1.991e-20 -3.980e-01 0.6911
+## ID NA NA NA NA
+## Income 1.786e-19 2.111e-19 8.460e-01 0.3980
+## Limit -3.111e-20 1.566e-20 -1.987e+00 0.0476 *
+## Rating 3.929e-19 2.264e-19 1.735e+00 0.0835 .
+## Cards -2.285e-18 2.032e-18 -1.125e+00 0.2614
+## Age -8.665e-20 1.357e-19 -6.390e-01 0.5234
+## Education 8.986e-19 7.324e-19 1.227e+00 0.2206
+## GenderFemale 5.599e-18 4.578e-18 1.223e+00 0.2220
+## StudentYes 1.000e+00 1.254e-17 7.977e+16 &lt;2e-16 ***
+## MarriedYes -4.200e-18 4.752e-18 -8.840e-01 0.3774
+## EthnicityAsian -3.630e-19 6.479e-18 -5.600e-02 0.9554
+## EthnicityCaucasian 1.822e-18 5.611e-18 3.250e-01 0.7456
+## Balance 1.653e-20 2.328e-20 7.100e-01 0.4782
+## Age_c NA NA NA NA
+## Education_c NA NA NA NA
+## ---
+## Signif. codes: 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1
+&#39; &#39; 1
+##
+## (Dispersion parameter for gaussian family taken to be
+2.047513e-33)
+##
+## Null deviance: 3.6000e+01 on 399 degrees of freedom
+## Residual deviance: 7.9034e-31 on 386 degrees of freedom
+## AIC: -28957
+##
+## Number of Fisher Scoring iterations: 1</code></pre>
+<pre class="r"><code>prob &lt;- predict(fit4, type = &quot;response&quot;)
+class_diag(prob, data$y)</code></pre>
+<pre><code>##   acc sens spec ppv auc
+## 1   1    1    1   1   1</code></pre>
+<pre class="r"><code># 10-fold CV
+k = 10
+data &lt;- data[sample(nrow(data)), ]
+folds &lt;- cut(seq(1:nrow(data)), breaks = k, labels = F)
+
+diags &lt;- NULL
+for (i in 1:k) {
+    train &lt;- data[folds != i, ]
+    test &lt;- data[folds == i, ]
+    truth &lt;- test$y
+    
+    fit4 &lt;- glm(y ~ ., data = data, family = binomial)
+    probs &lt;- predict(fit4, newdata = test, type = &quot;response&quot;)
+    diags &lt;- rbind(diags, class_diag(probs, truth))
+}
+summarize_all(diags, mean)</code></pre>
+<pre><code>##   acc sens spec ppv auc
+## 1   1    1    1   1   1</code></pre>
+<pre class="r"><code># LASSO
+library(glmnet)
+y &lt;- as.matrix(data$y)
+x &lt;- model.matrix(y ~ ., data = data)
+cv &lt;- cv.glmnet(x, y, family = &quot;binomial&quot;)
+lasso1 &lt;- glmnet(x, y, family = &quot;binomial&quot;, lambda = cv$lambda.1se)
+coef(lasso1)</code></pre>
+<pre><code>## 18 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
+##                           s0
+## (Intercept)        -8.621835
+## (Intercept)         .       
+## X                   .       
+## ID                  .       
+## Income              .       
+## Limit               .       
+## Rating              .       
+## Cards               .       
+## Age                 .       
+## Education           .       
+## GenderFemale        .       
+## StudentYes         15.045026
+## MarriedYes          .       
+## EthnicityAsian      .       
+## EthnicityCaucasian  .       
+## Balance             .       
+## Age_c               .       
+## Education_c         .</code></pre>
+<p><em>After performing a logistic regression that predicted if someone was a student or not based on all the other variables in the dataset,the in-sample classification diagnostics were an acc of 0.82, sens of 0.1 spec of 0.9. ppv of 0.1, and auc of 0.499. This auc is very low and would be considered bad.</em>
+<em>Next, I performed a 10-fold CV with the same model, and all the average out-of-sample classification diagnostics were a 1.</em>
+<em>After that I performing LASSO on the same model. The variables that were retained were the intercept and StudentYes. However, since I used the Student variable to create the binary y variable, it would not make sense to run a 10-fold CV on the lasso selected variables since it would be the same variable. </em></p>
+</div>
+</div>
+
+            
+        <hr>         <div class="related-posts">
+                <h5>Related Posts</h5>
+                
+              </div> 
+            </div>
+          </div>
+
+   <hr>  <div class="disqus">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+
+    (function() {
+      
+      
+      if (window.location.hostname == "localhost")
+        return;
+
+      var disqus_shortname = '';
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div> 
+        </div>
+      </div>
+    </div>
+
+    
+    <footer>
+  <div id="footer">
+    <div class="container">
+      <p class="text-muted">&copy; All rights reserved. Powered by <a href="https://gohugo.io/">Hugo</a> and
+      <a href="http://www.github.com/nurlansu/hugo-sustain/">sustain</a> with ♥</p>
+    </div>
+  </div>
+</footer>
+<div class="footer"></div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="../../js/docs.min.js"></script>
+<script src="../../js/main.js"></script>
+
+<script src="../../js/ie10-viewport-bug-workaround.js"></script>
+
+
+    
+  </body>
+</html>
