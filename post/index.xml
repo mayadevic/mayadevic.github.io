@@ -18,5 +18,15 @@ Link to project 1
 Link to google</description>
     </item>
     
+    <item>
+      <title>Using R and Python  </title>
+      <link>/post/2021/05/09/getting-started-with-python/</link>
+      <pubDate>Sun, 09 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2021/05/09/getting-started-with-python/</guid>
+      <description> R and Python are well-known programming languages that are useful tools to know how to use. In this demonstration I will be showing you how the reticulate package can be used to allow R and Python to talk to each other.
+#R code chunk library(reticulate) a &amp;lt;- &amp;quot;Thank&amp;quot; #Python code chunk a = &amp;quot;You&amp;quot; print(r.a,a) ## Thank You </description>
+    </item>
+    
   </channel>
 </rss>
